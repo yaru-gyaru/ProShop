@@ -1,4 +1,4 @@
 # ProShop
 Symbat Kylysh
 
-Ayaru Kayratt
+Ayaru Kayrat
