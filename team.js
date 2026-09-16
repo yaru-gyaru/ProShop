@@ -2,6 +2,7 @@ import yaruGyaru from './yaru-gyaru.js';
 import kylyshSymbat from './kylyshsymbat.js';
 import bayaa from './bayaa06.js';
 
+/** @typedef {import('./types.js').TeamMember} TeamMember */
 /** @type {TeamMember[]} */
 const team = [yaruGyaru, kylyshSymbat, bayaa];
 const teamList = document.querySelector('#team-list');
