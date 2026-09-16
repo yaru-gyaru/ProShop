@@ -7,7 +7,7 @@ const kylyshSymbat = {
     color: 'yellow',
     initials: 'SY',
     slug: 'symbat',
-    photo: '',
+    photo: './images/symbat.jpg',
     resume: {
         contact: ['20 лет', '8 778 863 5078', 'kylyshsymbat@gmail.com'],
         summary: 'Frontend Developer, который превращает идеи в понятные и живые интерфейсы. Интересуюсь также backend-инструментами и командной разработкой.',

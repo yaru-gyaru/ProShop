@@ -7,7 +7,7 @@ const yaruGyaru = {
     color: 'coral',
     initials: 'AY',
     slug: 'ayaru',
-    photo: '',
+    photo: './images/ayaru.jpg',
     resume: {
         contact: ['Казахстан, Астана', '+7 707 388 6198', 'kairat.aiaru87@gmail.com', 'GitHub: github.com/yaru-gyaru'],
         summary: 'Студентка 3-го курса ВТиПО с практическим опытом веб-разработки, работы с базами данных и системами контроля версий. Активно участвую в хакатонах и IT-конференциях, регулярно решаю задачи на LeetCode. Ищу позицию Junior Software Engineer / Trainee Developer.',

@@ -7,7 +7,7 @@ const bayaa = {
     color: 'blue',
     initials: 'BA',
     slug: 'bayansulu',
-    photo: '',
+    photo: './images/bayan.jpg',
     resume: {
         contact: ['19 лет', '+7 (771) 793 77 40', 'bayansulu0210@gmail.com', 'Portfolio Link'],
         summary: 'Junior UI/UX Designer и Figma Designer. Люблю находить баланс между формой и функцией и продумывать удобный пользовательский путь.',
