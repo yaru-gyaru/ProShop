@@ -1,4 +1,0 @@
-# ProShop
-Symbat Kylysh
-
-Ayaru 
