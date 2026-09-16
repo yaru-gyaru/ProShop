@@ -18,7 +18,7 @@ team.forEach((member, index) => {
         </div>
         <div class="member-info">
             <p class="member-role">${member.role}</p>
-            <h3>${member.name}</h3>
+            <h3><a class="member-link" href="./resume.html?member=${member.slug}">${member.name}</a></h3>
             <p class="member-about">${member.about}</p>
             <div class="skills">${member.skills.map((skill) => `<span>${skill}</span>`).join('')}</div>
         </div>
