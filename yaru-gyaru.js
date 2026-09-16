@@ -1,9 +1,9 @@
 /** @type {import('./types.js').TeamMember} */
 const yaruGyaru = {
     name: 'Ayaru',
-    role: 'Frontend-разработчик',
-    about: 'Люблю превращать идеи в понятные и живые интерфейсы. Изучаю JavaScript и учусь работать в команде.',
-    skills: ['HTML', 'CSS', 'JavaScript'],
+    role: 'Backend-разработчик',
+    about: 'Разбираюсь в логике и данных, задаю вопросы и помогаю команде двигаться к рабочему результату.',
+    skills: ['Git', 'Логика', 'Командная работа'],
     color: 'coral',
     initials: 'AY'
 };

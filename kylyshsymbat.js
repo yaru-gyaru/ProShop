@@ -1,9 +1,9 @@
 /** @type {import('./types.js').TeamMember} */
 const kylyshSymbat = {
     name: 'Symbat',
-    role: 'UI-дизайнер',
-    about: 'Слежу за тем, чтобы продукт был не только полезным, но и приятным. Нахожу баланс между формой и функцией.',
-    skills: ['Figma', 'UX', 'Прототипы'],
+    role: 'Frontend-Разработчик',
+    about: 'Люблю превращать идеи в понятные и живые интерфейсы. Изучаю JavaScript и учусь работать в команде.',
+    skills: ['HTML', 'CSS', 'JavaScript'],
     color: 'yellow',
     initials: 'SY'
 };
