@@ -15,14 +15,24 @@ if (!member) {
     `;
 } else {
     document.title = `${member.name} — резюме | ProShop`;
+    const photo = member.photo
+        ? `<img class="resume-photo" src="${member.photo}" alt="Фото ${member.name}">`
+        : `<div class="resume-photo resume-photo-placeholder"><span>Ваше<br>фото</span><small>Добавьте файл<br>в поле photo</small></div>`;
+
+    const list = (items) => items.map((item) => `<li>${item}</li>`).join('');
+    const pairs = (items) => items.map(([title, text]) => `
+        <div class="resume-detail"><strong>${title}</strong><p>${text}</p></div>
+    `).join('');
+
     resume.innerHTML = `
         <a class="back-link" href="./index.html#team">← Все участники</a>
         <section class="resume-heading ${member.color}">
-            <div>
+            <div class="resume-heading-text">
                 <p class="resume-role">${member.role}</p>
                 <h1>${member.name}</h1>
+                <ul class="resume-contact">${list(member.resume.contact)}</ul>
             </div>
-            <div class="resume-avatar">${member.initials}</div>
+            ${photo}
         </section>
         <section class="resume-grid">
             <div class="resume-block">
@@ -30,16 +40,24 @@ if (!member) {
                 <p>${member.resume.summary}</p>
             </div>
             <div class="resume-block">
-                <h2>Навыки</h2>
-                <div class="resume-skills">${member.skills.map((skill) => `<span>${skill}</span>`).join('')}</div>
+                <h2>Образование</h2>
+                <ul class="resume-list">${list(member.resume.education)}</ul>
+            </div>
+            <div class="resume-block resume-block-wide">
+                <h2>Технические навыки</h2>
+                <div class="resume-details">${pairs(member.resume.technicalSkills)}</div>
+            </div>
+            <div class="resume-block resume-block-wide">
+                <h2>Проекты и мероприятия</h2>
+                <div class="resume-details">${pairs(member.resume.projects)}</div>
             </div>
             <div class="resume-block">
-                <h2>Опыт</h2>
-                <p>${member.resume.experience}</p>
+                <h2>Soft skills</h2>
+                <ul class="resume-list">${list(member.resume.softSkills)}</ul>
             </div>
             <div class="resume-block">
-                <h2>Обучение</h2>
-                <p>${member.resume.education}</p>
+                <h2>Языки</h2>
+                <ul class="resume-list">${list(member.resume.languages)}</ul>
             </div>
         </section>
     `;

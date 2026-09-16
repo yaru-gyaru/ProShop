@@ -1,16 +1,25 @@
 /** @type {import('./types.js').TeamMember} */
 const kylyshSymbat = {
-    name: 'Symbat',
-    role: 'Frontend-Разработчик',
-    about: 'Люблю превращать идеи в понятные и живые интерфейсы. Изучаю JavaScript и учусь работать в команде.',
-    skills: ['HTML', 'CSS', 'JavaScript'],
+    name: 'Қылыш Сымбат',
+    role: 'Frontend Developer',
+    about: 'Создаю понятные интерфейсы и изучаю современные инструменты frontend-разработки.',
+    skills: ['JavaScript', 'HTML5', 'CSS3', 'Tailwind CSS', 'Node.js'],
     color: 'yellow',
     initials: 'SY',
     slug: 'symbat',
+    photo: '',
     resume: {
-        summary: 'Создаю понятные интерфейсы и слежу за тем, чтобы сайт был удобным на разных устройствах.',
-        experience: 'Разрабатывала структуру страницы команды и оформляла интерактивные элементы ProShop.',
-        education: 'Изучаю HTML, CSS и JavaScript, практикую адаптивную вёрстку.'
+        contact: ['20 лет', '8 778 863 5078', 'kylyshsymbat@gmail.com'],
+        summary: 'Frontend Developer, который превращает идеи в понятные и живые интерфейсы. Интересуюсь также backend-инструментами и командной разработкой.',
+        education: ['Астана халықаралық университеті (AIU)', 'Вычислительная техника и программное обеспечение', '3 курс'],
+        technicalSkills: [
+            ['Frontend', 'JavaScript, HTML5, CSS3, Tailwind CSS'],
+            ['Backend', 'Node.js, Supabase, MS SQL Server'],
+            ['Инструменты', 'GitHub, VS Code']
+        ],
+        projects: [['ProShop', 'Участие в создании командной страницы: структура, адаптивная вёрстка и интерактивные элементы.']],
+        softSkills: ['Командная работа', 'Внимание к деталям', 'Быстрое обучение'],
+        languages: ['Казахский — родной', 'Русский — свободный', 'Английский — изучаю']
     }
 };
 
