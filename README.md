@@ -1,4 +1,70 @@
-Наша команда
-- [Ayaru](https://github.com/yaru-gyaru)
-- [Symbat](https://github.com/kylyshsymbat)
-- [Bayansulu](https://github.com/kylyshsymbat)
+# Страница команды ProShop
+
+Страница собирается из отдельных файлов участников. Чтобы добавить себя, скопируйте один из файлов участника, измените данные и добавьте новый импорт в `team.js`.
+
+## Как устроен проект
+
+- `index.html` — разметка страницы: шапка, место для карточек и подвал.
+- `styles.css` — цвета, размеры, сетка и адаптация под телефон.
+- `types.js` — описание типа `TeamMember`; это подсказка для редактора о нужных полях.
+- `yaru-gyaru.js`, `kylyshsymbat.js`, `bayaa06.js` — отдельные файлы с данными участников.
+- `team.js` — импортирует участников, объединяет их в массив и создает HTML-карточки.
+
+## Объяснение JavaScript по строкам
+
+### Файл участника
+
+```js
+/** @type {import('./types.js').TeamMember} */
+```
+Связывает объект ниже с типом `TeamMember`. VS Code подскажет обязательные поля и возможные ошибки.
+
+```js
+const yaruGyaru = {
+    name: 'Ayaru',
+    role: 'Frontend-разработчик',
+    about: 'Короткий рассказ о себе.',
+    skills: ['HTML', 'CSS', 'JavaScript'],
+    color: 'coral',
+    initials: 'AY'
+};
+```
+`const` хранит данные участника. Фигурные скобки создают объект, а каждая строка внутри заполняет одно поле типа: имя, роль, описание, навыки, цвет и буквы аватара. Квадратные скобки создают массив навыков.
+
+```js
+export default yaruGyaru;
+```
+Делает объект доступным для других файлов.
+
+### Файл объединения
+
+```js
+import yaruGyaru from './yaru-gyaru.js';
+```
+Подключает данные из файла участника. Для каждого нового участника нужна такая же строка.
+
+```js
+const team = [yaruGyaru, kylyshSymbat, bayaa];
+```
+Создает общий массив команды.
+
+```js
+const teamList = document.querySelector('#team-list');
+```
+Находит в HTML пустой контейнер, куда попадут карточки.
+
+```js
+team.forEach((member, index) => {
+    const card = document.createElement('article');
+    card.className = `member-card ${member.color}`;
+    card.innerHTML = `...`;
+    teamList.append(card);
+});
+```
+`forEach` проходит по участникам. `member` — текущий участник, `index` — его номер. `createElement` создает карточку, `className` задает CSS-классы, `innerHTML` вставляет данные, а `append` добавляет карточку на страницу.
+
+В шаблоне `${member.name}` подставляет имя. Выражение `member.skills.map(...).join('')` превращает массив навыков в набор HTML-тегов.
+
+## Запуск
+
+Откройте `index.html` через локальный сервер в VS Code, например с расширением Live Server. Обычное открытие двойным кликом может заблокировать JavaScript-модули браузером.
