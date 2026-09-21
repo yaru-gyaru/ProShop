@@ -7,6 +7,7 @@ const hero = document.querySelector('.hero');
 const teamSection = document.querySelector('#team');
 const teamList = document.querySelector('#team-list');
 const resumeView = document.querySelector('#resume-view');
+const memberTabs = document.querySelector('#member-tabs');
 
 const list = (items) => items.map((item) => `<li>${item}</li>`).join('');
 const pairs = (items) => items.map(([title, text]) => `
@@ -70,6 +71,15 @@ function showTeam() {
     teamSection.hidden = false;
     window.scrollTo({ top: teamSection.offsetTop, behavior: 'smooth' });
 }
+
+team.forEach((member) => {
+    const tab = document.createElement('button');
+    tab.className = 'member-tab';
+    tab.type = 'button';
+    tab.textContent = member.name;
+    tab.addEventListener('click', () => showResume(member));
+    memberTabs.append(tab);
+});
 
 team.forEach((member, index) => {
     const card = document.createElement('article');
