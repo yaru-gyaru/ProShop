@@ -7,6 +7,7 @@ const kylyshSymbat = {
     color: 'yellow',
     initials: 'SY',
     slug: 'symbat',
+    github: 'kylyshsymbat',
     photo: './images/symbat.jpg',
     resume: {
         contact: ['20 лет', '8 778 863 5078', 'kylyshsymbat@gmail.com'],

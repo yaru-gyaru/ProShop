@@ -25,6 +25,7 @@ function showResume(member) {
                 <p class="resume-role">${member.role}</p>
                 <h1>${member.name}</h1>
                 <ul class="resume-contact">${list(member.resume.contact)}</ul>
+                <a class="github-link resume-github" href="https://github.com/${member.github}" target="_blank" rel="noreferrer">GitHub ↗</a>
             </div>
             ${photo}
         </section>
@@ -80,6 +81,7 @@ team.forEach((member, index) => {
     card.innerHTML = `
         <div class="card-top">
             <span class="member-number">0${index + 1}</span>
+            <a class="github-link" href="https://github.com/${member.github}" target="_blank" rel="noreferrer">GitHub ↗</a>
             <span class="member-initials">${member.initials}</span>
         </div>
         <div class="member-info">
@@ -89,6 +91,7 @@ team.forEach((member, index) => {
             <div class="skills">${member.skills.map((skill) => `<span>${skill}</span>`).join('')}</div>
         </div>
     `;
+    card.querySelector('.github-link').addEventListener('click', (event) => event.stopPropagation());
     card.addEventListener('click', () => showResume(member));
     card.addEventListener('keydown', (event) => {
         if (event.key === 'Enter' || event.key === ' ') {

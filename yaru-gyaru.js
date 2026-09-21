@@ -7,6 +7,7 @@ const yaruGyaru = {
     color: 'coral',
     initials: 'AY',
     slug: 'ayaru',
+    github: 'yaru-gyaru',
     photo: './images/ayaru.jpg',
     resume: {
         contact: ['Казахстан, Астана', '+7 707 388 6198', 'kairat.aiaru87@gmail.com', 'GitHub: github.com/yaru-gyaru'],
