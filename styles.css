@@ -32,6 +32,8 @@ h2 { font-size: clamp(2.6rem, 5vw, 5rem); line-height: 0.94; }
 .section-description { max-width: 210px; margin: 0 0 4px auto; color: #65706a; font-size: 0.9rem; line-height: 1.45; }
 .team-list { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
 .member-card { min-height: 470px; padding: 24px; display: flex; flex-direction: column; justify-content: space-between; border: 1px solid var(--line); border-radius: 4px; box-shadow: 0 8px 0 rgba(23, 34, 31, 0.05); animation: reveal 700ms both; animation-delay: var(--delay); transition: transform 180ms ease, box-shadow 180ms ease; }
+.member-card { cursor: pointer; }
+.member-card:focus-visible { outline: 3px solid var(--accent); outline-offset: 5px; }
 .member-card:hover { transform: translateY(-7px) rotate(-0.4deg); box-shadow: 0 16px 0 rgba(23, 34, 31, 0.08); }
 .member-card.coral { background: #e97862; }
 .member-card.yellow { background: #f4c95d; }
@@ -52,6 +54,7 @@ h3 { font-size: clamp(2.5rem, 5vw, 4.5rem); line-height: 0.9; }
 .resume-page { min-height: 100vh; display: flex; flex-direction: column; }
 .resume-main { width: min(900px, 88vw); margin: 0 auto; padding: 90px 0 120px; flex: 1; }
 .back-link { display: inline-block; margin-bottom: 48px; color: var(--ink); font-size: 0.8rem; text-decoration: none; }
+.back-button { padding: 0; border: 0; background: none; cursor: pointer; font: inherit; }
 .back-link:hover { text-decoration: underline; }
 .resume-heading { display: flex; align-items: end; justify-content: space-between; gap: 40px; margin-bottom: 70px; padding: 30px 34px; border: 1px solid var(--line); border-radius: 4px; box-shadow: 0 8px 0 rgba(23, 34, 31, 0.05); }
 .resume-heading-text { min-width: 0; }
