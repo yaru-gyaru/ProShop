@@ -32,6 +32,7 @@ if (!member) {
                 <h1>${member.name}</h1>
                 <ul class="resume-contact">${list(member.resume.contact)}</ul>
             </div>
+            
             ${photo}
         </section>
         <section class="resume-grid">
