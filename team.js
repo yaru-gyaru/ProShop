@@ -1,39 +1,6 @@
-// ===== Карточки деректері =====
-const teamMembers = [
-  {
-    id: "01",
-    initials: "AY",
-    name: "Айару<br>Қайрат",
-    role: "Junior Software Engineer / Trainee Developer",
-    about: "Студентка 3-го курса ВТиПО с практическим опытом веб-разработки, баз данных и систем контроля версий.",
-    skills: ["Java", "SQL", "C/C++", "Git", "PostgreSQL"],
-    color: "coral",
-    tab: "kayrat",
-    photo: "images/ayaru.jpg"
-  },
-  {
-    id: "02",
-    initials: "SY",
-    name: "Қылыш<br>Сымбат",
-    role: "Frontend Developer",
-    about: "Создаю понятные интерфейсы и изучаю современные инструменты frontend-разработки.",
-    skills: ["JavaScript", "HTML5", "CSS3", "Tailwind CSS", "Node.js"],
-    color: "yellow",
-    tab: "kylysh",
-    photo: "images/symbat.jpg"
-  },
-  {
-    id: "03",
-    initials: "BA",
-    name: "Жойлау<br>Баянсұлу",
-    role: "Junior UI/UX Designer / Figma Designer",
-    about: "Проектирую внешний вид и пользовательский путь, чтобы продукт был полезным и приятным.",
-    skills: ["Figma", "UI/UX", "Wireframing", "User Flow", "Prototypes"],
-    color: "blue",
-    tab: "zhoylau",
-    photo: "images/bayan.jpg"
-  }
-];
+import yaruGyaru from './yaru-gyaru.js';
+import kylyshSymbat from './kylyshsymbat.js';
+import bayaa from './bayaa06.js';
 
 const team = [yaruGyaru, kylyshSymbat, bayaa];
 const hero = document.querySelector('.hero');
@@ -114,11 +81,8 @@ team.forEach((member) => {
     memberTabs.append(tab);
 });
 
-if (teamList) {
-  teamList.innerHTML = "";
-
-  teamMembers.forEach(member => {
-    const card = document.createElement("article");
+team.forEach((member, index) => {
+    const card = document.createElement('article');
     card.className = `member-card ${member.color}`;
     card.style.setProperty('--delay', `${index * 120}ms`);
     card.tabIndex = 0;
