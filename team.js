@@ -8,6 +8,8 @@ const teamSection = document.querySelector('#team');
 const teamList = document.querySelector('#team-list');
 const resumeView = document.querySelector('#resume-view');
 const memberTabs = document.querySelector('#member-tabs');
+const tasksView = document.querySelector('#tasks-view');
+const taskTabs = document.querySelectorAll('.task-tab');
 
 const list = (items) => items.map((item) => `<li>${item}</li>`).join('');
 const pairs = (items) => items.map(([title, text]) => `
@@ -61,15 +63,110 @@ function showResume(member) {
     hero.hidden = true;
     teamSection.hidden = true;
     resumeView.hidden = false;
+    tasksView.hidden = true;
     resumeView.querySelector('.back-button').addEventListener('click', showTeam);
     window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
 function showTeam() {
+    document.querySelectorAll('.new-div').forEach((element) => element.remove());
     hero.hidden = false;
     resumeView.hidden = true;
+    tasksView.hidden = true;
     teamSection.hidden = false;
     window.scrollTo({ top: teamSection.offsetTop, behavior: 'smooth' });
+}
+
+function runTask1() {
+    document.querySelectorAll('.new-div').forEach((element) => element.remove());
+    const textElement = document.querySelector('#task-text');
+    textElement.textContent = 'Сәлем, әлем!';
+
+    const newDiv = document.createElement('div');
+    newDiv.className = 'new-div';
+    newDiv.textContent = 'Мен жаңа элементпін';
+    document.body.append(newDiv);
+
+    const oldElement = document.querySelector('.old-element');
+    if (oldElement) oldElement.remove();
+
+    const paragraph = document.createElement('p');
+    paragraph.className = 'click-paragraph';
+    paragraph.textContent = 'Бұл ауыспалы абзац';
+    paragraph.addEventListener('click', () => {
+        paragraph.style.color = '#e7614e';
+        paragraph.style.fontSize = '1.25rem';
+    });
+    document.querySelector('#task-playground').append(paragraph);
+}
+
+function runTask2() {
+    const classElement = document.querySelector('#class-element');
+    const classOutput = document.querySelector('#class-output');
+    classElement.classList.toggle('active');
+    const classes = [...classElement.classList].join(', ');
+    console.log('Барлық кластар:', classes);
+    classOutput.textContent = `Кластар тізімі: ${classes}`;
+}
+
+function showTask(taskName) {
+    hero.hidden = true;
+    teamSection.hidden = true;
+    resumeView.hidden = true;
+    tasksView.hidden = false;
+
+    if (taskName === 'task-1') {
+        tasksView.innerHTML = `
+            <button class="back-link back-button" type="button">← Артқа</button>
+            <section class="task-heading coral">
+                <p class="eyebrow">JavaScript · DOM</p>
+                <h1>Тапсырма 1</h1>
+                <p>Элементтерді табу, жасау, жою және оларға оқиға қосу.</p>
+            </section>
+            <section class="task-content">
+                <h2>Жұмыс нәтижесі</h2>
+                <div id="task-playground" class="task-playground">
+                    <p id="task-text">Бастапқы мәтін</p>
+                    <div class="old-element">Бұл ескі элемент кейін жойылады</div>
+                </div>
+                <p class="task-hint">Төмендегі абзацты басып көріңіз: түсі мен өлшемі өзгереді.</p>
+                <h2>Не жасалды?</h2>
+                <ol class="task-explanation">
+                    <li>ID арқылы элемент табылып, оның мәтіні «Сәлем, әлем!» болып өзгертілді.</li>
+                    <li><code>new-div</code> класы бар жаңа <code>div</code> құрылып, <code>body</code> соңына қосылды.</li>
+                    <li><code>old-element</code> класы бар ескі элемент жойылды.</li>
+                    <li>Абзац жасалып, оны басқанда түсі мен қаріп өлшемі өзгеретін болды.</li>
+                </ol>
+            </section>
+        `;
+        runTask1();
+    } else {
+        tasksView.innerHTML = `
+            <button class="back-link back-button" type="button">← Артқа</button>
+            <section class="task-heading yellow">
+                <p class="eyebrow">JavaScript · classList</p>
+                <h1>Тапсырма 2</h1>
+                <p>Элемент кластарын басқару және олардың тізімін көрсету.</p>
+            </section>
+            <section class="task-content">
+                <h2>Жұмыс нәтижесі</h2>
+                <div id="class-element" class="class-demo">Белсенді класты көру үшін батырманы басыңыз</div>
+                <button id="toggle-class" class="task-action" type="button">active класын ауыстыру</button>
+                <p id="class-output" class="class-output">Кластар тізімі: class-demo</p>
+                <h2>Не жасалды?</h2>
+                <ol class="task-explanation">
+                    <li><code>classList.toggle('active')</code> класты қосады немесе алып тастайды.</li>
+                    <li>Барлық кластар <code>classList</code> арқылы массивке жиналды.</li>
+                    <li>Кластар тізімі консольге және төмендегі <code>p</code> тегіне шығарылды.</li>
+                </ol>
+            </section>
+        `;
+        document.querySelector('#toggle-class').addEventListener('click', runTask2);
+        runTask2();
+    }
+
+    tasksView.querySelector('.back-button').addEventListener('click', showTeam);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
 team.forEach((member) => {
@@ -79,6 +176,10 @@ team.forEach((member) => {
     tab.textContent = member.name;
     tab.addEventListener('click', () => showResume(member));
     memberTabs.append(tab);
+});
+
+taskTabs.forEach((tab) => {
+    tab.addEventListener('click', () => showTask(tab.dataset.task));
 });
 
 team.forEach((member, index) => {
