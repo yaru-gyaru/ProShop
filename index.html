@@ -16,7 +16,7 @@
             <a class="logo" href="./index.html">Pro<span>Shop</span></a>
             <a class="nav-link" href="#team">Участники команды <span>↘</span></a>
         </nav>
-        <nav id="member-tabs" class="member-tabs" aria-label="Резюме участников"></nav>
+        
         <div class="hero-content">
             <p class="eyebrow">Команда разработчиков · 2026</p>
             <h1>Знакомьтесь,<br><em>это мы.</em></h1>
@@ -29,8 +29,19 @@
         <div class="section-heading">
             <p class="eyebrow">Команда</p>
             <h2>Разный опыт<br>единый результат</h2>
-            <p class="section-description">Нажмите на карточку, чтобы открыть резюме участника.</p>
+            <p class="section-description">Выберите вкладку, чтобы посмотреть участников</p>
         </div>
+
+        <!-- ВКЛАДКАЛАР ОСЫНДА -->
+        <nav id="member-tabs" class="member-tabs" style="display:flex; gap:12px; margin: 25px 0 30px; flex-wrap:wrap; justify-content: center;">
+            <button class="member-tab active" data-tab="team">Команда</button>
+            <button class="member-tab" data-tab="ayaru">Қайрат Айару</button>
+            <button class="member-tab" data-tab="symbat">Қылыш Сымбат</button>
+            <button class="member-tab" data-tab="bayansulu">Жойлау Баянсұлу</button>
+            <button class="member-tab" data-tab="task1">1-тапсырма</button>
+            <button class="member-tab" data-tab="task2">2-тапсырма</button>
+        </nav>
+
         <div id="team-list" class="team-list" aria-live="polite"></div>
     </main>
 
