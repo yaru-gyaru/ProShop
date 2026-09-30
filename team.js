@@ -94,8 +94,7 @@ function runTask1() {
     paragraph.className = 'click-paragraph';
     paragraph.textContent = 'Бұл ауыспалы абзац';
     paragraph.addEventListener('click', () => {
-        paragraph.style.color = '#e7614e';
-        paragraph.style.fontSize = '1.25rem';
+        paragraph.classList.toggle('changed');
     });
     document.querySelector('#task-playground').append(paragraph);
 }
