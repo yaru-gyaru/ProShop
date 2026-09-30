@@ -1,6 +1,7 @@
 import yaruGyaru from './yaru-gyaru.js';
 import kylyshSymbat from './kylyshsymbat.js';
 import bayaa from './bayaa06.js';
+import { showTableTask, showThemeTask } from './practice.js';
 
 const team = [yaruGyaru, kylyshSymbat, bayaa];
 const hero = document.querySelector('.hero');
@@ -109,6 +110,7 @@ function runTask2() {
 }
 
 function showTask(taskName) {
+    document.querySelectorAll('.new-div').forEach((element) => element.remove());
     hero.hidden = true;
     teamSection.hidden = true;
     resumeView.hidden = true;
@@ -139,7 +141,7 @@ function showTask(taskName) {
             </section>
         `;
         runTask1();
-    } else {
+    } else if (taskName === 'task-2') {
         tasksView.innerHTML = `
             <button class="back-link back-button" type="button">← Артқа</button>
             <section class="task-heading yellow">
@@ -162,6 +164,10 @@ function showTask(taskName) {
         `;
         document.querySelector('#toggle-class').addEventListener('click', runTask2);
         runTask2();
+    } else if (taskName === 'task-3') {
+        showTableTask(tasksView);
+    } else if (taskName === 'task-4') {
+        showThemeTask(tasksView);
     }
 
     tasksView.querySelector('.back-button').addEventListener('click', showTeam);
