@@ -17,7 +17,7 @@ export function showTableTask(container) {
             <button class="task-action" type="submit">Кесте құру</button>
         </form>
         <p id="table-error" role="alert"></p>
-        <label>Бояу және санау түсі
+        <label>Бояу түсі
             <select id="cell-color">
                 <option value="coral">Қызғылт сары</option>
                 <option value="yellow">Сары</option>
@@ -27,17 +27,23 @@ export function showTableTask(container) {
         <p>Түсті таңдап, ұяшықты басыңыз. Сол түсті ұяшықты қайта бассаңыз, бояуы өшеді.</p>
         <div id="table-area" class="table-scroll"></div>
         <button id="count-cells" class="task-action" type="button">Ұяшықтарды санау</button>
-        <p id="cell-count" role="status"></p>
+        <div id="cell-count" class="color-counts" role="status" aria-label="Түстер бойынша ұяшықтар саны"></div>
         <section class="task-content">
             <h2>Қалай жұмыс істейді?</h2>
-            <p>createTable() екі циклмен жолдар мен ұяшықтарды жасайды. Басқанда ұяшықтың data-color мәні және фон түсі өзгереді. countCells() таңдалған түстегі ұяшықтарды санайды.</p>
+            <p>createTable() екі циклмен жолдар мен ұяшықтарды жасайды. Басқанда ұяшықтың data-color мәні және фон түсі өзгереді. countCells() әр түстегі ұяшықтарды санайды. Барлық түстердің саны қатар көрсетіледі.</p>
         </section>`;
 
     const area = container.querySelector('#table-area');
     const colorSelect = container.querySelector('#cell-color');
     function updateCount() {
         const table = area.querySelector('table');
-        container.querySelector('#cell-count').textContent = `${colorSelect.selectedOptions[0].textContent}: ${countCells(table, colorSelect.value)} ұяшық`;
+        // Таңдалған түске қарамастан, барлық түстерді көрсетеміз.
+        container.querySelector('#cell-count').innerHTML = [...colorSelect.options].map((option) => `
+            <span class="color-count">
+                <span class="color-dot ${option.value}" aria-hidden="true"></span>
+                ${option.textContent}: <strong>${countCells(table, option.value)}</strong> ұяшық
+            </span>
+        `).join('');
     }
 
     function createTable(rows, columns) {

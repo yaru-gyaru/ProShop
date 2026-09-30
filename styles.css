@@ -101,6 +101,12 @@ h3 { font-size: clamp(2.5rem, 5vw, 4.5rem); line-height: 0.9; }
 .table-controls input, #cell-color { padding: 10px; border: 1px solid var(--line); border-radius: 6px; background: var(--paper); color: var(--ink); font: inherit; }
 .table-controls input { width: 150px; }
 .table-scroll { overflow-x: auto; margin-top: 20px; }
+.color-counts { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 18px; }
+.color-count { display: inline-flex; align-items: center; gap: 6px; padding: 10px 14px; border: 1px solid var(--line); border-radius: 12px; }
+.color-dot { width: 14px; height: 14px; border-radius: 50%; flex-shrink: 0; }
+.color-dot.coral { background: #e97862; }
+.color-dot.yellow { background: #f4c95d; }
+.color-dot.blue { background: #9bc8d1; }
 .practice-table { border-collapse: collapse; }
 .practice-table caption { text-align: left; padding-bottom: 12px; }
 .practice-table td { padding: 0; border: 1px solid var(--line); }
