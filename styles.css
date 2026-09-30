@@ -157,3 +157,304 @@ body.dark-theme { --ink: #f3f0e8; --paper: #19221f; --green: #293b30; --line: rg
     .resume-detail { grid-template-columns: 1fr; gap: 6px; }
     .footer { display: block; line-height: 1.8; }
 }
+
+
+
+
+/* ===== ТАПСЫРМАЛАР СТИЛІ ===== */
+.task-box {
+  background: #fff;
+  border-radius: 20px;
+  padding: 32px;
+  max-width: 560px;
+  margin: 40px auto 0;
+  border: 1px solid var(--line);
+  box-shadow: 0 10px 30px rgba(23, 34, 31, 0.06);
+}
+
+.dark-theme .task-box, .dark-theme .task-block, .dark-theme .style-p, .dark-theme .toggle-element { background: var(--green); color: var(--ink); }
+.dark-theme .task-subtitle, .dark-theme .small, .dark-theme .hint { color: #c5d5c9; }
+.dark-theme .toggle-element.active { background: #584b25; }
+.dark-theme .task-block h3 { color: #a8c5ff; }
+.task-box h2 {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 1.8rem;
+  margin-bottom: 20px;
+}
+
+.task-btn {
+  margin-top: 16px;
+  padding: 10px 22px;
+  border: none;
+  border-radius: 999px;
+  background: #2e4a3e;
+  color: #fff;
+  font-size: 0.95rem;
+  font-family: 'DM Sans', sans-serif;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.task-btn:hover {
+  background: #1e3329;
+}
+
+.toggle-element {
+  padding: 16px 20px;
+  border-radius: 12px;
+  background: #f0ece4;
+  border: 2px solid transparent;
+  cursor: pointer;
+  margin: 16px 0;
+  transition: 0.25s;
+  font-size: 0.95rem;
+}
+
+.toggle-element.active {
+  background: #d8e9d5;
+  border-color: #2e4a3e;
+  font-weight: 600;
+}
+
+.new-div {
+  margin: 12px 0;
+  padding: 12px 16px;
+  background: #e8f5e9;
+  border-radius: 10px;
+  font-weight: 500;
+  border: 1px solid #c8e6c9;
+}
+
+#class-list {
+  margin-top: 16px;
+  padding: 12px;
+  background: #f8f6f1;
+  border-radius: 10px;
+  font-size: 0.9rem;
+  color: #444;
+}
+.task-subtitle {
+  color: #65706a;
+  font-size: 0.95rem;
+  margin-bottom: 28px;
+  line-height: 1.5;
+}
+
+.task-block {
+  background: #f8f6f1;
+  border-radius: 14px;
+  padding: 20px;
+  margin-bottom: 18px;
+  border: 1px solid var(--line);
+}
+
+.task-block h3 {
+  font-size: 1rem;
+  margin-bottom: 10px;
+  font-family: 'Space Grotesk', sans-serif;
+}
+
+.style-p {
+  padding: 12px;
+  background: #fff;
+  border-radius: 8px;
+  margin: 10px 0;
+  border: 1px dashed #ccc;
+}
+
+.hint {
+  font-size: 0.82rem;
+  color: #888;
+  margin-top: 8px;
+}
+
+.old-element {
+  padding: 10px 14px;
+  background: #eee;
+  border-radius: 8px;
+  margin: 10px 0;
+}
+.task-box.wide {
+  max-width: 920px;
+  margin: 0 auto;
+}
+
+.task-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 18px;
+}
+
+.task-block .small {
+  font-size: 0.85rem;
+  color: #666;
+  margin-bottom: 10px;
+}
+
+.new-div-preview {
+  margin-top: 12px;
+  padding: 12px 16px;
+  background: #e8f5e9;
+  border-radius: 10px;
+  font-weight: 500;
+  border: 1px solid #c8e6c9;
+}
+
+@media (max-width: 700px) {
+  .task-grid {
+    grid-template-columns: 1fr;
+  }
+}
+.task-box.full-width {
+  max-width: none;
+  width: 100%;
+  margin: 40px 0 0;
+}
+
+.task-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 18px;
+}
+
+.task-block {
+  background: #f8f6f1;
+  border-radius: 14px;
+  padding: 22px 24px;
+  border: 1px solid var(--line);
+}
+
+.task-block h3 {
+  font-size: 1.05rem;
+  margin: 0 0 10px;
+  font-family: 'Space Grotesk', sans-serif;
+}
+
+.task-block .small {
+  font-size: 0.87rem;
+  color: #666;
+  margin-bottom: 12px;
+}
+
+.style-p {
+  padding: 14px 16px;
+  background: #fff;
+  border-radius: 10px;
+  margin: 12px 0;
+  border: 1px dashed #ccc;
+}
+
+.new-div-preview {
+  margin-top: 14px;
+  padding: 12px 16px;
+  background: #e8f5e9;
+  border-radius: 10px;
+  font-weight: 500;
+  border: 1px solid #c8e6c9;
+}
+
+.old-element {
+  padding: 12px 16px;
+  background: #eee;
+  border-radius: 8px;
+  margin: 12px 0;
+}
+
+@media (max-width: 700px) {
+  .task-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ===== ТҮЗЕТУ: суреттегідей — блоктар бір бағанда, толық енде, астыастына тұрады ===== */
+/* team-section әдетте max-width: 1250px болғандықтан, тапсырма ашылғанда
+   сол шектеуді алып тастаймыз — блок толық экранды алады */
+.team-section:has(.task-box) {
+  max-width: none;
+  padding-left: 0;
+  padding-right: 0;
+}
+
+/* НАҒЫЗ СЕБЕП: .task-box #team-list ішінде тұр, ал #team-list элементі
+   .team-list класы арқылы 3 бағанды grid болып тұр (grid-template-columns:
+   repeat(3, 1fr)). Сондықтан .task-box сол grid-тің тек 1 бағанасын ғана
+   алып, ені жалпы ораммен шектеліп қалады. Тапсырма ашық кезде grid-ті
+   өшіріп, task-box-ты толық ені бойынша соза аламыз. */
+.team-list:has(.task-box) {
+  display: block;
+}
+
+.task-box {
+  grid-column: 1 / -1;
+}
+
+.task-box {
+  max-width: none;
+  width: 100%;
+  margin: 40px 0 0;
+  padding: 32px 6vw;
+  border-radius: 0;
+}
+
+.task-box h2 {
+  text-align: left;
+  font-size: 1.6rem;
+  margin-bottom: 28px;
+}
+
+/* Грид емес, вертикаль тізбек — суреттегідей */
+.task-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 26px;
+}
+
+.task-block {
+  width: 100%;
+  padding: 24px 26px;
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid var(--line);
+  padding-bottom: 26px;
+}
+
+.task-block:last-child {
+  border-bottom: none;
+}
+
+.task-block h3 {
+  color: #2f5fd6;
+  font-size: 1rem;
+  font-weight: 700;
+  margin-bottom: 14px;
+}
+
+/* Суреттегідей көк, толық енді батырмалар */
+.task-btn {
+  display: block;
+  width: 100%;
+  background: #2f6fed;
+  border-radius: 10px;
+  padding: 13px 20px;
+  font-weight: 600;
+}
+
+.task-btn:hover {
+  background: #244fb0;
+}
+
+/* Жойылатын ескі элементті ерекшелеп көрсету (сурет бойынша қызғылт жол) */
+.old-element {
+  background: #fbe4e2;
+  border: 1px solid #f3b9b4;
+  color: #8a2f27;
+  padding: 14px 16px;
+  border-radius: 8px;
+  margin-bottom: 14px;
+}
+
+@media (max-width: 760px) {
+  .task-box {
+    padding: 22px;
+  }
+}

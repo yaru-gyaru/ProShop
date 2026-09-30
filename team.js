@@ -78,98 +78,16 @@ function showTeam() {
     window.scrollTo({ top: teamSection.offsetTop, behavior: 'smooth' });
 }
 
-function runTask1() {
-    document.querySelectorAll('.new-div').forEach((element) => element.remove());
-    const textElement = document.querySelector('#task-text');
-    textElement.textContent = 'Сәлем, әлем!';
-
-    const newDiv = document.createElement('div');
-    newDiv.className = 'new-div';
-    newDiv.textContent = 'Мен жаңа элементпін';
-    document.body.append(newDiv);
-
-    const oldElement = document.querySelector('.old-element');
-    if (oldElement) oldElement.remove();
-
-    const paragraph = document.createElement('p');
-    paragraph.className = 'click-paragraph';
-    paragraph.textContent = 'Бұл ауыспалы абзац';
-    paragraph.addEventListener('click', () => {
-        paragraph.classList.toggle('changed');
-    });
-    document.querySelector('#task-playground').append(paragraph);
-}
-
-function runTask2() {
-    const classElement = document.querySelector('#class-element');
-    const classOutput = document.querySelector('#class-output');
-    classElement.classList.toggle('active');
-    const classes = [...classElement.classList].join(', ');
-    console.log('Барлық кластар:', classes);
-    classOutput.textContent = `Кластар тізімі: ${classes}`;
-}
-
 function showTask(taskName) {
     document.querySelectorAll('.new-div').forEach((element) => element.remove());
     hero.hidden = true;
     teamSection.hidden = true;
     resumeView.hidden = true;
     tasksView.hidden = false;
-
-    if (taskName === 'task-1') {
-        tasksView.innerHTML = `
-            <button class="back-link back-button" type="button">← Артқа</button>
-            <section class="task-heading coral">
-                <p class="eyebrow">JavaScript · DOM</p>
-                <h1>Тапсырма 1</h1>
-                <p>Элементтерді табу, жасау, жою және оларға оқиға қосу.</p>
-            </section>
-            <section class="task-content">
-                <h2>Жұмыс нәтижесі</h2>
-                <div id="task-playground" class="task-playground">
-                    <p id="task-text">Бастапқы мәтін</p>
-                    <div class="old-element">Бұл ескі элемент кейін жойылады</div>
-                </div>
-                <p class="task-hint">Төмендегі абзацты басып көріңіз: түсі мен өлшемі өзгереді.</p>
-                <h2>Не жасалды?</h2>
-                <ol class="task-explanation">
-                    <li>ID арқылы элемент табылып, оның мәтіні «Сәлем, әлем!» болып өзгертілді.</li>
-                    <li><code>new-div</code> класы бар жаңа <code>div</code> құрылып, <code>body</code> соңына қосылды.</li>
-                    <li><code>old-element</code> класы бар ескі элемент жойылды.</li>
-                    <li>Абзац жасалып, оны басқанда түсі мен қаріп өлшемі өзгеретін болды.</li>
-                </ol>
-            </section>
-        `;
-        runTask1();
-    } else if (taskName === 'task-2') {
-        tasksView.innerHTML = `
-            <button class="back-link back-button" type="button">← Артқа</button>
-            <section class="task-heading yellow">
-                <p class="eyebrow">JavaScript · classList</p>
-                <h1>Тапсырма 2</h1>
-                <p>Элемент кластарын басқару және олардың тізімін көрсету.</p>
-            </section>
-            <section class="task-content">
-                <h2>Жұмыс нәтижесі</h2>
-                <div id="class-element" class="class-demo">Белсенді класты көру үшін батырманы басыңыз</div>
-                <button id="toggle-class" class="task-action" type="button">active класын ауыстыру</button>
-                <p id="class-output" class="class-output">Кластар тізімі: class-demo</p>
-                <h2>Не жасалды?</h2>
-                <ol class="task-explanation">
-                    <li><code>classList.toggle('active')</code> класты қосады немесе алып тастайды.</li>
-                    <li>Барлық кластар <code>classList</code> арқылы массивке жиналды.</li>
-                    <li>Кластар тізімі консольге және төмендегі <code>p</code> тегіне шығарылды.</li>
-                </ol>
-            </section>
-        `;
-        document.querySelector('#toggle-class').addEventListener('click', runTask2);
-        runTask2();
-    } else if (taskName === 'task-3') {
-        showTableTask(tasksView);
-    } else if (taskName === 'task-4') {
-        showThemeTask(tasksView);
-    }
-
+    if (taskName === 'task-1') showTask1();
+    if (taskName === 'task-2') showTask2();
+    if (taskName === 'task-3') showTableTask(tasksView);
+    if (taskName === 'task-4') showThemeTask(tasksView);
     tasksView.querySelector('.back-button').addEventListener('click', showTeam);
     window.scrollTo({ top: 0, behavior: 'smooth' });
 }
@@ -210,10 +128,136 @@ team.forEach((member, index) => {
     card.querySelector('.github-link').addEventListener('click', (event) => event.stopPropagation());
     card.addEventListener('click', () => showResume(member));
     card.addEventListener('keydown', (event) => {
-        if (event.key === 'Enter' || event.key === ' ') {
+        if (event.target === card && (event.key === 'Enter' || event.key === ' ')) {
             event.preventDefault();
             showResume(member);
         }
     });
     teamList.append(card);
 });
+function showTask1() {
+  tasksView.innerHTML = `
+    <button class="back-link back-button" type="button">← Артқа</button>
+    <div class="task-box full-width">
+      <h2>1-ТАПСЫРМА</h2>
+      <p class="task-subtitle">DOM элементтерімен жұмыс · Мәтінді өзгерту, элемент қосу және жою</p>
+
+      <div class="task-block">
+        <h3>ID бойынша мәтінді өзгерту</h3>
+        <p id="hello-text">Бастапқы мәтін</p>
+        <button id="btn-change-text" class="task-btn">Мәтінді өзгерту</button>
+      </div>
+
+      <div class="task-block">
+        <h3>Абзац стилін өзгерту</h3>
+        <p class="small">Батырманы басқанда мәтіннің түсі мен қаріп өлшемі өзгереді.</p>
+        <p id="style-paragraph" class="style-p">Бұл ауыспалы абзац</p>
+        <button id="btn-change-style" class="task-btn">Стильді өзгерту</button>
+      </div>
+
+      <div class="task-block">
+        <h3>Жаңа элемент қосу</h3>
+        <p class="small">Жаңа div body тегінің соңына қосылады.</p>
+        <button id="btn-add-div" class="task-btn">Жаңа div қосу</button>
+        <div id="new-div-preview"></div>
+      </div>
+
+      <div class="task-block">
+        <h3>Элементті жою</h3>
+        <p class="small">Бұл ескі элемент жойылады.</p>
+        <div class="old-element" id="old-element">Ескі элемент</div>
+        <button id="btn-remove" class="task-btn">Ескі элементті жою</button>
+      </div>
+    </div>
+  `;
+
+  // 1. Мәтінді өзгерту
+  document.getElementById('btn-change-text').onclick = () => {
+    document.getElementById('hello-text').textContent = 'Сәлем, әлем!';
+  };
+
+  // 2. Стильді өзгерту
+  let styleChanged = false;
+  const changeStyle = () => {
+    const p = document.getElementById('style-paragraph');
+    if (!styleChanged) {
+      p.style.color = '#e65100';
+      p.style.fontSize = '1.35rem';
+      p.style.fontWeight = '600';
+      styleChanged = true;
+    } else {
+      p.style.color = '';
+      p.style.fontSize = '';
+      p.style.fontWeight = '';
+      styleChanged = false;
+    }
+  };
+
+  document.getElementById('btn-change-style').onclick = changeStyle;
+  document.getElementById('style-paragraph').onclick = changeStyle;
+
+  // 3. Жаңа div → body соңына
+  document.getElementById('btn-add-div').onclick = () => {
+    const btn = document.getElementById('btn-add-div');
+    const preview = document.getElementById('new-div-preview');
+
+    if (!document.querySelector('.new-div')) {
+      const newDiv = document.createElement('div');
+      newDiv.className = 'new-div';
+      newDiv.textContent = 'Мен жаңа элементпін';
+
+      document.body.appendChild(newDiv);   // ← body соңына қосылады
+
+      btn.textContent = 'Жаңа div қосылды ✓';
+      btn.disabled = true;
+      btn.style.opacity = '0.75';
+
+      preview.innerHTML = `<div class="new-div-preview">Мен жаңа элементпін</div>`;
+    }
+  };
+
+  // 4. Ескі элементті жою
+  document.getElementById('btn-remove').onclick = () => {
+    const el = document.getElementById('old-element');
+    if (el) {
+      el.remove();
+      const btn = document.getElementById('btn-remove');
+      btn.textContent = 'Элемент жойылды ✓';
+      btn.disabled = true;
+      btn.style.opacity = '0.75';
+    }
+  };
+}
+// ===== 2-ТАПСЫРМА =====
+function showTask2() {
+  tasksView.innerHTML = `
+    <button class="back-link back-button" type="button">← Артқа</button>
+    <div class="task-box full-width">
+      <h2>2-ТАПСЫРМА</h2>
+      <p class="task-subtitle">Элемент кластарын басқару · active класын қосу / алу</p>
+
+      <div class="task-block">
+        <div id="toggle-box" class="toggle-element dom-demo class-example">
+          Классы өзгеретін элемент
+        </div>
+        <button id="btn-toggle-class" class="task-btn">active қосу / алу</button>
+        <p id="class-list">Кластар тізімі: —</p>
+        <p class="hint">Кластар тізімі браузер консольде де көрсетіледі (F12 → Console).</p>
+      </div>
+    </div>
+  `;
+
+  document.getElementById('btn-toggle-class').onclick = () => {
+    const box = document.getElementById('toggle-box');
+    if (!box) return;
+
+    box.classList.toggle('active');
+
+    console.log('Элемент кластары:', box.classList);
+
+    const listP = document.getElementById('class-list');
+    if (listP) {
+      listP.textContent = 'Кластар тізімі: ' + Array.from(box.classList).join(', ');
+    }
+  };
+}
