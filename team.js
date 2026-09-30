@@ -130,69 +130,112 @@ function showTeamCards() {
 // ===== 1-ТАПСЫРМА =====
 function showTask1() {
   teamList.innerHTML = `
-    <div class="task-box">
-      <h2>1-тапсырма</h2>
-      <p id="hello-text">Ескі мәтін</p>
-      <div class="old-element">Ескі элемент (жойылатын)</div>
-      <button id="run-task1" class="task-btn">Тапсырманы орындау</button>
-      <div id="task1-result"></div>
+    <div class="task-box full-width">
+      <h2>1-ТАПСЫРМА</h2>
+      <p class="task-subtitle">DOM элементтерімен жұмыс · Мәтінді өзгерту, элемент қосу және жою</p>
+
+      <div class="task-block">
+        <h3>ID бойынша мәтінді өзгерту</h3>
+        <p id="hello-text">Бастапқы мәтін</p>
+        <button id="btn-change-text" class="task-btn">Мәтінді өзгерту</button>
+      </div>
+
+      <div class="task-block">
+        <h3>Абзац стилін өзгерту</h3>
+        <p class="small">Батырманы басқанда мәтіннің түсі мен қаріп өлшемі өзгереді.</p>
+        <p id="style-paragraph" class="style-p">Бұл ауыспалы абзац</p>
+        <button id="btn-change-style" class="task-btn">Стильді өзгерту</button>
+      </div>
+
+      <div class="task-block">
+        <h3>Жаңа элемент қосу</h3>
+        <p class="small">Жаңа div body тегінің соңына қосылады.</p>
+        <button id="btn-add-div" class="task-btn">Жаңа div қосу</button>
+        <div id="new-div-preview"></div>
+      </div>
+
+      <div class="task-block">
+        <h3>Элементті жою</h3>
+        <p class="small">Бұл ескі элемент жойылады.</p>
+        <div class="old-element" id="old-element">Ескі элемент</div>
+        <button id="btn-remove" class="task-btn">Ескі элементті жою</button>
+      </div>
     </div>
   `;
 
-  document.getElementById('run-task1').onclick = () => {
-    // 1. ID бойынша мәтінді өзгерту
-    const hello = document.getElementById('hello-text');
-    if (hello) hello.textContent = 'Сәлем, әлем!';
+  // 1. Мәтінді өзгерту
+  document.getElementById('btn-change-text').onclick = () => {
+    document.getElementById('hello-text').textContent = 'Сәлем, әлем!';
+  };
 
-    // 2. Жаңа div жасау және body соңына қосу
+  // 2. Стильді өзгерту
+  let styleChanged = false;
+  document.getElementById('btn-change-style').onclick = () => {
+    const p = document.getElementById('style-paragraph');
+    if (!styleChanged) {
+      p.style.color = '#e65100';
+      p.style.fontSize = '1.35rem';
+      p.style.fontWeight = '600';
+      styleChanged = true;
+    } else {
+      p.style.color = '';
+      p.style.fontSize = '';
+      p.style.fontWeight = '';
+      styleChanged = false;
+    }
+  };
+
+  // 3. Жаңа div → body соңына
+  document.getElementById('btn-add-div').onclick = () => {
+    const btn = document.getElementById('btn-add-div');
+    const preview = document.getElementById('new-div-preview');
+
     if (!document.querySelector('.new-div')) {
       const newDiv = document.createElement('div');
       newDiv.className = 'new-div';
       newDiv.textContent = 'Мен жаңа элементпін';
-      document.body.appendChild(newDiv);
+      
+      document.body.appendChild(newDiv);   // ← body соңына қосылады
+
+      btn.textContent = 'Жаңа div қосылды ✓';
+      btn.disabled = true;
+      btn.style.opacity = '0.75';
+
+      preview.innerHTML = `<div class="new-div-preview">Мен жаңа элементпін</div>`;
     }
+  };
 
-    // 3. old-element-ті жою
-    document.querySelector('.old-element')?.remove();
-
-    // 4 + 5. Абзац жасау
-    if (!document.querySelector('#task1-result p')) {
-      const p = document.createElement('p');
-      p.textContent = 'Бұл ауыспалы абзац';
-      p.style.cssText = 'cursor:pointer; padding:12px; background:#fff3cd; border-radius:8px; margin-top:12px; transition:0.2s;';
-
-      let changed = false;
-      p.onclick = () => {
-        if (!changed) {
-          p.style.color = '#e65100';
-          p.style.fontSize = '1.3rem';
-          p.style.fontWeight = '600';
-          changed = true;
-        } else {
-          p.style.color = '';
-          p.style.fontSize = '';
-          p.style.fontWeight = '';
-          changed = false;
-        }
-      };
-
-      document.getElementById('task1-result').appendChild(p);
+  // 4. Ескі элементті жою
+  document.getElementById('btn-remove').onclick = () => {
+    const el = document.getElementById('old-element');
+    if (el) {
+      el.remove();
+      const btn = document.getElementById('btn-remove');
+      btn.textContent = 'Элемент жойылды ✓';
+      btn.disabled = true;
+      btn.style.opacity = '0.75';
     }
   };
 }
-
 // ===== 2-ТАПСЫРМА =====
 function showTask2() {
   teamList.innerHTML = `
-    <div class="task-box">
-      <h2>2-тапсырма</h2>
-      <div id="toggle-box" class="toggle-element">Мені басыңыз (active класы қосылады / алынады)</div>
-      <button id="run-task2" class="task-btn">Класты ауыстыру</button>
-      <p id="class-list">Кластар тізімі осында шығады</p>
+    <div class="task-box full-width">
+      <h2>2-ТАПСЫРМА</h2>
+      <p class="task-subtitle">Элемент кластарын басқару · active класын қосу / алу</p>
+
+      <div class="task-block">
+        <div id="toggle-box" class="toggle-element dom-demo class-example">
+          Классы өзгеретін элемент
+        </div>
+        <button id="btn-toggle-class" class="task-btn">active қосу / алу</button>
+        <p id="class-list">Кластар тізімі: —</p>
+        <p class="hint">Кластар тізімі браузер консольде де көрсетіледі (F12 → Console).</p>
+      </div>
     </div>
   `;
 
-  document.getElementById('run-task2').onclick = () => {
+  document.getElementById('btn-toggle-class').onclick = () => {
     const box = document.getElementById('toggle-box');
     if (!box) return;
 
@@ -206,6 +249,3 @@ function showTask2() {
     }
   };
 }
-
-// Бастапқыда карточкаларды көрсету
-showTeamCards();
