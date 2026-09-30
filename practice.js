@@ -28,29 +28,31 @@ export function showTableTask(container) {
         <div id="table-area" class="table-scroll"></div>
         <button id="count-cells" class="task-action" type="button">Ұяшықтарды санау</button>
         <div id="cell-count" class="color-counts" role="status" aria-label="Түстер бойынша ұяшықтар саны"></div>
-        <section class="task-content">
-            <h2>Қалай жұмыс істейді?</h2>
-            <p>Ұяшықтарды бояп, «Ұяшықтарды санау» батырмасын басыңыз. Тек боялған түстердің саны көрсетіледі. Одан кейін нәтиже бояуды өзгерткен сайын автоматты жаңарады.</p>
-        </section>`;
+        <p id="total-count" role="status" hidden></p>`;
 
     const area = container.querySelector('#table-area');
     const colorSelect = container.querySelector('#cell-color');
     let countingStarted = false;
     function updateCount() {
-        if (!countingStarted) return;
         const table = area.querySelector('table');
-        // Саны нөлден үлкен түстерді ғана көрсетеміз.
+        // Үш түстің саны әрқашан көрсетіледі, жалпы сан батырмамен ашылады.
         const colored = [...colorSelect.options].map((option) => ({
             color: option.value,
             name: option.textContent,
             count: countCells(table, option.value)
-        })).filter((item) => item.count > 0);
+        }));
         container.querySelector('#cell-count').innerHTML = colored.map((item) => `
             <span class="color-count">
                 <span class="color-dot ${item.color}" aria-hidden="true"></span>
                 ${item.name}: <strong>${item.count}</strong> ұяшық
             </span>
-        `).join('') || 'Боялған ұяшықтар жоқ.';
+        `).join('');
+        if (countingStarted) {
+            const total = colored.reduce((sum, item) => sum + item.count, 0);
+            const output = container.querySelector('#total-count');
+            output.hidden = false;
+            output.textContent = `Барлығы: ${total} боялған ұяшық`;
+        }
     }
 
     function createTable(rows, columns) {
@@ -78,7 +80,9 @@ export function showTableTask(container) {
         }
         area.replaceChildren(table);
         countingStarted = false;
-        container.querySelector('#cell-count').textContent = 'Нәтижені көру үшін «Ұяшықтарды санау» батырмасын басыңыз.';
+        container.querySelector('#total-count').hidden = true;
+        container.querySelector('#total-count').textContent = '';
+        updateCount();
     }
 
     container.querySelector('#table-form').addEventListener('submit', (event) => {

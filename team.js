@@ -1,7 +1,7 @@
 import yaruGyaru from './yaru-gyaru.js';
 import kylyshSymbat from './kylyshsymbat.js';
 import bayaa from './bayaa06.js';
-import { showTableTask, showThemeTask } from './practice.js?v=counts-2';
+import { showTableTask, showThemeTask } from './practice.js?v=counts-3';
 
 const team = [yaruGyaru, kylyshSymbat, bayaa];
 const hero = document.querySelector('.hero');
