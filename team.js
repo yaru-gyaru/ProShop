@@ -7,12 +7,6 @@ const hero = document.querySelector('.hero');
 const teamSection = document.querySelector('#team');
 const teamList = document.querySelector('#team-list');
 const resumeView = document.querySelector('#resume-view');
-<<<<<<< HEAD
-=======
-const memberTabs = document.querySelector('#member-tabs');
-const tasksView = document.querySelector('#tasks-view');
-const taskTabs = document.querySelectorAll('.task-tab');
->>>>>>> 28ea773af115a46d96cad9ea9587728833bf13c3
 
 const list = (items) => items.map((item) => `<li>${item}</li>`).join('');
 const pairs = (items) => items.map(([title, text]) => `
