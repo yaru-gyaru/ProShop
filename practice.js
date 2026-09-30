@@ -30,20 +30,27 @@ export function showTableTask(container) {
         <div id="cell-count" class="color-counts" role="status" aria-label="Түстер бойынша ұяшықтар саны"></div>
         <section class="task-content">
             <h2>Қалай жұмыс істейді?</h2>
-            <p>createTable() екі циклмен жолдар мен ұяшықтарды жасайды. Басқанда ұяшықтың data-color мәні және фон түсі өзгереді. countCells() әр түстегі ұяшықтарды санайды. Барлық түстердің саны қатар көрсетіледі.</p>
+            <p>Ұяшықтарды бояп, «Ұяшықтарды санау» батырмасын басыңыз. Тек боялған түстердің саны көрсетіледі. Одан кейін нәтиже бояуды өзгерткен сайын автоматты жаңарады.</p>
         </section>`;
 
     const area = container.querySelector('#table-area');
     const colorSelect = container.querySelector('#cell-color');
+    let countingStarted = false;
     function updateCount() {
+        if (!countingStarted) return;
         const table = area.querySelector('table');
-        // Таңдалған түске қарамастан, барлық түстерді көрсетеміз.
-        container.querySelector('#cell-count').innerHTML = [...colorSelect.options].map((option) => `
+        // Саны нөлден үлкен түстерді ғана көрсетеміз.
+        const colored = [...colorSelect.options].map((option) => ({
+            color: option.value,
+            name: option.textContent,
+            count: countCells(table, option.value)
+        })).filter((item) => item.count > 0);
+        container.querySelector('#cell-count').innerHTML = colored.map((item) => `
             <span class="color-count">
-                <span class="color-dot ${option.value}" aria-hidden="true"></span>
-                ${option.textContent}: <strong>${countCells(table, option.value)}</strong> ұяшық
+                <span class="color-dot ${item.color}" aria-hidden="true"></span>
+                ${item.name}: <strong>${item.count}</strong> ұяшық
             </span>
-        `).join('');
+        `).join('') || 'Боялған ұяшықтар жоқ.';
     }
 
     function createTable(rows, columns) {
@@ -70,7 +77,8 @@ export function showTableTask(container) {
             }
         }
         area.replaceChildren(table);
-        updateCount();
+        countingStarted = false;
+        container.querySelector('#cell-count').textContent = 'Нәтижені көру үшін «Ұяшықтарды санау» батырмасын басыңыз.';
     }
 
     container.querySelector('#table-form').addEventListener('submit', (event) => {
@@ -82,7 +90,10 @@ export function showTableTask(container) {
         if (valid) createTable(rows, columns);
     });
     colorSelect.addEventListener('change', updateCount);
-    container.querySelector('#count-cells').addEventListener('click', updateCount);
+    container.querySelector('#count-cells').addEventListener('click', () => {
+        countingStarted = true;
+        updateCount();
+    });
     createTable(4, 5);
 }
 
