@@ -75,6 +75,23 @@ function render() {
     progress.value = done;
     const filter = document.querySelector('#filter').value;
     const visible = todos.filter((todo) => filter === 'all' || todo.completed === (filter === 'done'));
+    const sort = document.querySelector('#sort').value;
+
+    if (sort === 'az') {
+    visible.sort((a, b) =>
+        a.todo.localeCompare(b.todo, 'kk', { sensitivity: 'base' })
+    );
+} else if (sort === 'za') {
+    visible.sort((a, b) =>
+        b.todo.localeCompare(a.todo, 'kk', { sensitivity: 'base' })
+    );
+} else if (sort === 'user') {
+    visible.sort((a, b) => a.userId - b.userId);
+} else if (sort === 'open') {
+    visible.sort((a, b) => Number(a.completed) - Number(b.completed));
+} else if (sort === 'done') {
+    visible.sort((a, b) => Number(b.completed) - Number(a.completed));
+}
     document.querySelector('#empty').hidden = visible.length > 0;
     document.querySelector('#empty').textContent = todos.length ? 'Таңдалған күйдегі тапсырмалар жоқ.' : 'Тапсырмалар жоқ. Алғашқы тапсырманы қосыңыз!';
     visible.forEach((todo) => {
@@ -203,3 +220,4 @@ document.querySelector('#edit-form').addEventListener('submit', (event) => {
     });
 });
 document.querySelector('#filter').addEventListener('change', render);
+document.querySelector('#sort').addEventListener('change', render);
