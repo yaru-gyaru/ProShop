@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="kk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Тапсырмалар тақтасы</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="app.js" defer></script>
+</head>
+<body>
+    <main>
+        <header><span class="brand">Тапсырмалар <span>↗</span></span><span class="tag">CRUD · DummyJSON API</span></header>
+        <section class="intro"><p class="eyebrow">Әр күн — жаңа мүмкіндік</p><h1>Сіздің тапсырмаларыңыз.<br><span>Өз қарқыныңыз.</span></h1><p>Пайдаланушы ID нөмірін таңдаңыз. Барлық тапсырмалар үшін 0 енгізіңіз.</p></section>
+        <form id="user-form" class="panel user-panel">
+            <label>Пайдаланушы ID<input id="user-id" type="number" min="0" max="9007199254740991" step="1" value="152" required></label>
+            <button type="submit">Тапсырмаларды жүктеу ↗</button>
+            <p>ID арқылы ашық деректер сүзіледі. Бұл құпиясөз немесе API кілті емес.</p>
+        </form>
+        <p id="message" role="status" aria-live="polite">ID енгізіп, «Тапсырмаларды жүктеу» батырмасын басыңыз.</p>
+        <section id="workspace" hidden>
+            <div class="heading"><h2 id="owner"></h2><span id="stats"></span></div>
+            <progress id="progress" max="1" value="0" aria-label="Орындалған тапсырмалар"></progress>
+            <form id="todo-form" class="panel add-panel">
+                <label id="input-label" for="todo-text">Жаңа тапсырма</label>
+                <div class="input-row"><input id="todo-text" placeholder="Не істеу керек?" maxlength="300" required><button id="save" type="submit">Қосу</button></div>
+            </form>
+            <label class="filter">Көрсету <select id="filter"><option value="all">Барлық тапсырмалар</option><option value="open">оқылды емес</option><option value="done">оқылды</option></select></label>
+            <ul id="todos"></ul>
+            <p id="empty" hidden>Тапсырмалар жоқ. Алғашқы тапсырманы қосыңыз!</p>
+        </section>
+        <footer>Оқу API қызметі өзгерістерді серверде сақтамайды. Өзгерістер осы браузерде әр пайдаланушы үшін жеке сақталады. «Жергілікті» тапсырмалар браузерде өңделеді. Барлық тапсырмалар режимінде жаңа тапсырма қосу үшін нақты пайдаланушы ID нөмірін таңдаңыз. API тапсырмаларының бастапқы мәтіні түпнұсқа тілінде көрсетіледі.</footer>
+    </main>
+    <dialog id="edit-dialog" aria-labelledby="edit-title">
+        <form id="edit-form">
+            <h2 id="edit-title">Тапсырманы өзгерту</h2>
+            <label for="edit-text">Тапсырма мәтіні</label>
+            <textarea id="edit-text" maxlength="300" rows="4" required></textarea>
+            <p id="edit-error" role="alert"></p>
+            <div class="input-row">
+                <button type="submit">Сақтау</button>
+                <button id="cancel-edit" type="button" class="secondary">Бас тарту</button>
+            </div>
+        </form>
+    </dialog>
+</body>
+</html>
