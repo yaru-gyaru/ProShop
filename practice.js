@@ -1,8 +1,7 @@
-// Бір түске боялған ұяшықтарды санаймыз.
 export function countCells(table, color) {
     return [...table.querySelectorAll('td')].filter((cell) => cell.dataset.color === color).length;
 }
-
+   
 export function showTableTask(container) {
     container.innerHTML = `
         <button class="back-link back-button" type="button">← Артқа</button>
