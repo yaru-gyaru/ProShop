@@ -46,3 +46,11 @@ ul { padding: 0; margin: 0; list-style: none; }
 .actions button { font-size: 13px; padding: 9px; }
 footer { margin-top: 48px; padding-top: 22px; border-top: 1px solid var(--line); font-size: 13px; color: #596855; }
 @media (max-width: 600px) { main { padding: 22px 16px; } .tag { display: none; } .todo { flex-wrap: wrap; } .actions { margin-left: 38px; } .heading { align-items: start; flex-direction: column; gap: 0; } .user-panel button { width: 100%; } }
+
+#edit-owner {
+padding: 10px 14px;
+border-radius: 10px;
+background: var(--accent);
+color: var(--ink);
+font-weight: bold;
+}

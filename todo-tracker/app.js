@@ -127,8 +127,10 @@ function render() {
         edit.addEventListener('click', () => {
             editingKey = todo.key;
             editInput.value = todo.todo;
+            document.querySelector('#edit-owner').textContent =
+Тапсырма иесі: пайдаланушы #${todo.userId};
             document.querySelector('#edit-error').textContent = '';
-            dialog.showModal();
+dialog.showModal();
         });
         const remove = document.createElement('button');
         remove.className = 'secondary';
