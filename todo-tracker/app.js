@@ -7,9 +7,14 @@ const message = document.querySelector('#message');
 let userId = null;
 let loadedOwners = [];
 let todos = [];
+let userProfiles = new Map();
+let profileLoadNumber = 0;
 let editingKey = null;
 let busy = false;
 const dialog = document.querySelector('#edit-dialog');
+const profileDialog = document.querySelector('#profile-dialog');
+let openProfileId = null;
+let profilesLoading = false;
 const editInput = document.querySelector('#edit-text');
 
 function tell(text, error = false) {
@@ -33,6 +38,29 @@ async function request(path, method = 'GET', body) {
     } finally {
         clearTimeout(timer);
     }
+}
+
+// Пайдаланушылардың тек тапсырмаларда қажет деректерін аламыз.
+
+async function loadUserProfiles() {
+    if (profilesLoading) return;
+profilesLoading = true;
+    const thisLoad = ++profileLoadNumber;
+    try {
+        const data = await request(
+    '/users?limit=0&select=id,username,image,firstName,lastName,age');
+        if (!Array.isArray(data.users) || thisLoad !== profileLoadNumber) return;
+        userProfiles = new Map(data.users.map((profile) => [profile.id, profile]));
+        render();
+        if (profileDialog.open) {
+    renderProfile(openProfileId);
+}
+    } catch {
+        // Пайдаланушы деректері уақытша ашылмаса да, тапсырмалар көрсетіле береді.
+    }
+    finally {
+    profilesLoading = false;
+}
 }
 
 // На время запроса блокируем действия, чтобы пользователи и ответы не смешались.
@@ -64,6 +92,129 @@ function cancelEdit() {
     editingKey = null;
     dialog.close();
 }
+
+function startEditing(todo) {
+    editingKey = todo.key;
+    editInput.value = todo.todo;
+    document.querySelector('#edit-owner').textContent =
+        `Тапсырма иесі: пайдаланушы #${todo.userId}`;
+    document.querySelector('#edit-error').textContent = '';
+    dialog.showModal();
+}
+
+function removeTodo(todo) {
+    if (!confirm(`«${todo.todo}» тапсырмасын жою керек пе?`)) return;
+
+    action(async () => {
+        if (!todo.local) {
+            await request(`/todos/${todo.id}`, 'DELETE');
+        }
+
+        todos = todos.filter((item) => item.key !== todo.key);
+        save();
+        render();
+
+        if (profileDialog.open) {
+            renderProfile(openProfileId);
+        }
+    });
+}
+
+function fillProfileTasks(listId, emptyId, tasks) {
+    const taskList = document.querySelector(`#${listId}`);
+    taskList.replaceChildren();
+    document.querySelector(`#${emptyId}`).hidden = tasks.length > 0;
+
+    tasks.forEach((todo) => {
+        const item = document.createElement('li');
+        item.className = 'profile-task';
+
+        const text = document.createElement('span');
+        text.className = 'profile-task-text';
+        text.textContent = todo.todo;
+
+        const buttons = document.createElement('div');
+        buttons.className = 'profile-task-actions';
+
+        const editButton = document.createElement('button');
+        editButton.type = 'button';
+        editButton.className = 'secondary';
+        editButton.textContent = 'Өзгерту';
+        editButton.addEventListener('click', () => startEditing(todo));
+
+        const deleteButton = document.createElement('button');
+        deleteButton.type = 'button';
+        deleteButton.className = 'secondary';
+        deleteButton.textContent = 'Жою';
+        deleteButton.addEventListener('click', () => removeTodo(todo));
+
+        buttons.append(editButton, deleteButton);
+        item.append(text, buttons);
+        taskList.append(item);
+    });
+}
+
+function renderProfile(id) {
+    if (id === null) return;
+
+    const profile = userProfiles.get(id);
+    const avatar = document.querySelector('#profile-avatar');
+    const fullName = profile
+        ? `${profile.firstName || ''} ${profile.lastName || ''}`.trim()
+        : '';
+
+    document.querySelector('#profile-title').textContent =
+        profile?.username ? `@${profile.username}` : `Пайдаланушы #${id}`;
+
+    document.querySelector('#profile-info').textContent = [
+        fullName,
+        profile?.age ? `${profile.age} жас` : '',
+        `ID #${id}`
+    ].filter(Boolean).join(' · ');
+
+    document.querySelector('#profile-link').href = `${API}/users/${id}` + (profile?.username ? `?username=${profile.username}` : '')        ;
+
+    if (profile?.image) {
+        avatar.src = profile.image;
+        avatar.hidden = false;
+    } else {
+        avatar.removeAttribute('src');
+        avatar.hidden = true;
+    }
+
+    const userTasks = todos.filter((todo) => todo.userId === id);
+    fillProfileTasks(
+        'profile-done',
+        'profile-done-empty',
+        userTasks.filter((todo) => todo.completed)
+    );
+    fillProfileTasks(
+        'profile-open',
+        'profile-open-empty',
+        userTasks.filter((todo) => !todo.completed)
+    );
+}
+
+function showProfile(id) {
+    openProfileId = id;
+    renderProfile(id);
+
+    if (!profileDialog.open) {
+        profileDialog.showModal();
+    }
+
+    if (!userProfiles.has(id) && !profilesLoading) {
+        void loadUserProfiles();
+    }
+}
+
+document.querySelector('#close-profile').addEventListener('click', () => {
+    profileDialog.close();
+});
+
+profileDialog.addEventListener('close', () => {
+    openProfileId = null;
+});
 
 function render() {
     list.replaceChildren();
@@ -118,7 +269,30 @@ function render() {
         const meta = document.createElement('span');
         meta.className = 'meta';
         meta.textContent = `${todo.completed ? 'оқылды' : 'оқылды емес'} · #${todo.userId} · ${todo.local ? 'Жергілікті' : `API #${todo.id}`}`;
-        content.append(title, meta);
+        const profile = userProfiles.get(todo.userId);
+        const account = document.createElement('a');
+        account.className = 'task-user';
+        account.href = `${API}/users/${todo.userId}`;
+        account.target = '_blank';
+        account.rel = 'noopener noreferrer';
+        account.addEventListener('click', (event) => {
+    event.preventDefault();
+    showProfile(todo.userId);
+});
+        account.setAttribute('aria-label', `Тапсырма иесінің профилін ашу: ${profile?.username || `#${todo.userId}`}`);
+
+        const avatar = document.createElement('img');
+        avatar.className = 'task-user-avatar';
+        avatar.src = profile?.image || `${API}/icon/user-${todo.userId}/64`;
+        avatar.alt = '';
+        avatar.width = 28;
+        avatar.height = 28;
+        avatar.loading = 'lazy';
+
+        const username = document.createElement('span');
+        username.textContent = profile?.username ? `@${profile.username}` : `Пайдаланушы #${todo.userId}`;
+        account.append(avatar, username);
+        content.append(title, meta, account);
         const actions = document.createElement('div');
         actions.className = 'actions';
         const edit = document.createElement('button');
@@ -184,6 +358,7 @@ userForm.addEventListener('submit', (event) => {
         todoForm.hidden = id === 0;
         render();
         tell(cached ? 'API жүктелді. Сақталған өзгерістер көрсетілді.' : 'Тапсырмалар API арқылы жүктелді.');
+        void loadUserProfiles();
     });
 });
 
@@ -214,7 +389,14 @@ document.querySelector('#edit-form').addEventListener('submit', (event) => {
             if (!todo) throw new Error('Тапсырма табылмады');
             if (!todo.local) await request(`/todos/${todo.id}`, 'PATCH', { todo: text });
             todo.todo = text;
-            save(); render(); cancelEdit();
+            save();
+render();
+
+if (profileDialog.open) {
+    renderProfile(openProfileId);
+}
+
+cancelEdit();
         } catch (error) {
             document.querySelector('#edit-error').textContent = 'Сақталмады. Қайта көріңіз.';
             throw error;
