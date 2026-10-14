@@ -35,6 +35,8 @@ progress { width: 100%; height: 10px; accent-color: #658548; margin-bottom: 24px
 .input-row { display: flex; gap: 10px; margin-top: 12px; flex-wrap: wrap; }
 .input-row input { flex: 1; min-width: 180px; }
 .filter { display: flex; align-items: center; margin: 24px 0 16px; }
+.list-controls { display: flex; align-items: center; flex-wrap: wrap; gap: 20px; margin: 18px 0 12px; }
+.list-controls .filter { margin: 0; }
 ul { padding: 0; margin: 0; list-style: none; }
 .todo { display: flex; gap: 16px; align-items: center; padding: 20px 0; border-bottom: 1px solid var(--line); }
 .todo input { width: 22px; height: 22px; flex-shrink: 0; accent-color: #658548; }
@@ -112,6 +114,57 @@ dialog::backdrop {
 
 #add-dialog form {
     gap: 14px;
+}
+
+#add-dialog {
+    width: min(820px, 96vw);
+    padding: clamp(24px, 5vw, 48px);
+}
+
+.add-dialog-heading {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    margin-bottom: 8px;
+}
+
+.add-dialog-heading h2 {
+    margin: 0;
+    font-size: clamp(28px, 4vw, 38px);
+}
+
+.dialog-close {
+    display: grid;
+    width: 44px;
+    height: 44px;
+    flex: 0 0 44px;
+    place-items: center;
+    padding: 0;
+    border-color: var(--line);
+    border-radius: 50%;
+    background: #fffefa;
+    color: var(--ink);
+    font-size: 30px;
+    line-height: 1;
+    box-shadow: none;
+}
+
+#add-dialog textarea {
+    min-height: 130px;
+    padding: 16px;
+    font-size: 18px;
+}
+
+#add-dialog select {
+    min-height: 58px;
+    padding: 14px 16px;
+    font-size: 17px;
+}
+
+#add-dialog .input-row {
+    gap: 14px;
+    margin-top: 18px;
 }
 
 #add-dialog h2,
@@ -250,5 +303,11 @@ dialog::backdrop {
 
     .filter select {
         width: 100%;
+    }
+
+    .list-controls {
+        align-items: stretch;
+        flex-direction: column;
+        gap: 0;
     }
 }

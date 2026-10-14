@@ -21,15 +21,21 @@
             <div class="heading"><h2 id="owner"></h2><span id="stats"></span></div>
             <progress id="progress" max="1" value="0" aria-label="Орындалған тапсырмалар"></progress>
             <button id="open-add-dialog" type="button">Жаңа тапсырма қосу ＋</button>
-            <label class="filter">Сұрыптау <select id="sort">
-        <option value="default">Бастапқы рет</option>
-        <option value="az">Әліпби бойынша (А → Я)</option>
-        <option value="za">Әліпби бойынша (Я → А)</option>
-        <option value="user">Пайдаланушы ID бойынша</option>
-        <option value="open">Алдымен оқылды емес</option>
-        <option value="done">Алдымен оқылды</option>
-        </select>
-        </label>
+            <div class="list-controls">
+                <label class="filter">Сұрыптау <select id="sort">
+                    <option value="default">Бастапқы рет</option>
+                    <option value="az">Әліпби бойынша (А → Я)</option>
+                    <option value="za">Әліпби бойынша (Я → А)</option>
+                    <option value="user">Пайдаланушы ID бойынша</option>
+                    <option value="open">Алдымен орындалмаған</option>
+                    <option value="done">Алдымен орындалған</option>
+                </select></label>
+                <label class="filter">Күйі <select id="status-filter">
+                    <option value="all">Барлық тапсырмалар</option>
+                    <option value="open">Орындалмаған</option>
+                    <option value="done">Орындалған</option>
+                </select></label>
+            </div>
 
             <ul id="todos"></ul>
             <p id="empty" hidden>Тапсырмалар жоқ. Алғашқы тапсырманы қосыңыз!</p>
@@ -51,7 +57,10 @@
     </dialog>
     <dialog id="add-dialog" aria-labelledby="add-title">
         <form id="todo-form">
-            <h2 id="add-title">Жаңа тапсырма</h2>
+            <div class="add-dialog-heading">
+                <h2 id="add-title">Жаңа тапсырма</h2>
+                <button id="close-add" class="dialog-close" type="button" aria-label="Жабу">×</button>
+            </div>
             <label for="todo-text">Тапсырма мәтіні</label>
             <textarea id="todo-text" placeholder="Не істеу керек?" maxlength="300" rows="3" required></textarea>
             <label for="assignee">Орындаушы</label>

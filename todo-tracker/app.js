@@ -277,7 +277,10 @@ function render() {
     const progress = document.querySelector('#progress');
     progress.max = todos.length || 1;
     progress.value = done;
-    const visible = [...todos];
+    const statusFilter = document.querySelector('#status-filter').value;
+    const visible = todos.filter((todo) =>
+        statusFilter === 'all' || todo.completed === (statusFilter === 'done')
+    );
     const sort = document.querySelector('#sort').value;
 
     if (sort === 'az') {
@@ -399,6 +402,7 @@ userForm.addEventListener('submit', (event) => {
         userId = id;
         todos = next;
         cancelEdit();
+        document.querySelector('#status-filter').value = 'all';
         document.querySelector('#workspace').hidden = false;
         fillAssigneeOptions();
         render();
@@ -415,6 +419,7 @@ document.querySelector('#open-add-dialog').addEventListener('click', () => {
     addDialog.showModal();
 });
 document.querySelector('#cancel-add').addEventListener('click', () => addDialog.close());
+document.querySelector('#close-add').addEventListener('click', () => addDialog.close());
 addDialog.addEventListener('cancel', (event) => { if (busy) event.preventDefault(); });
 
 todoForm.addEventListener('submit', (event) => {
@@ -435,6 +440,7 @@ todoForm.addEventListener('submit', (event) => {
         todos.unshift({ id: added.id, key: crypto.randomUUID(), userId: assignedUserId, todo: text, completed, local: true });
         if (!loadedOwners.includes(assignedUserId)) loadedOwners.push(assignedUserId);
         textInput.value = '';
+        document.querySelector('#status-filter').value = 'all';
         save(); render();
         if (profileDialog.open) renderProfile(openProfileId);
         addDialog.close();
@@ -468,3 +474,4 @@ document.querySelector('#edit-form').addEventListener('submit', (event) => {
     });
 });
 document.querySelector('#sort').addEventListener('change', render);
+document.querySelector('#status-filter').addEventListener('change', render);
