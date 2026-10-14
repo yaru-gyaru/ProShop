@@ -78,6 +78,9 @@
         </form>
     </dialog>
     <dialog id="profile-dialog" class="profile-dialog" aria-labelledby="profile-title">
+        <div class="profile-dialog-topbar">
+            <button id="close-profile" class="dialog-close" type="button" aria-label="Жабу">×</button>
+        </div>
         <div class="profile-layout">
             <aside class="profile-info-column">
                 <div class="profile-heading">
@@ -87,8 +90,8 @@
                         <p id="profile-info"></p>
                     </div>
                 </div>
+                <button id="profile-add-task" class="profile-add-task" type="button">Осы пайдаланушыға тапсырма қосу ＋</button>
                 <ul id="profile-details" class="profile-details"></ul>
-                <button id="close-profile" type="button" class="secondary">Жабу</button>
             </aside>
             <div class="profile-task-column">
                 <h2 class="profile-tasks-title">Тапсырмалары</h2>

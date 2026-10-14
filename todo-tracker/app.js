@@ -411,12 +411,20 @@ userForm.addEventListener('submit', (event) => {
     });
 });
 
-document.querySelector('#open-add-dialog').addEventListener('click', () => {
+function openAddDialog(assignedUserId = null) {
     fillAssigneeOptions();
+    if (assignedUserId !== null) {
+        assigneeSelect.value = String(assignedUserId);
+    }
     document.querySelector('#add-error').textContent = '';
     textInput.value = '';
     statusSelect.value = 'false';
     addDialog.showModal();
+}
+
+document.querySelector('#open-add-dialog').addEventListener('click', () => openAddDialog());
+document.querySelector('#profile-add-task').addEventListener('click', () => {
+    if (openProfileId !== null) openAddDialog(openProfileId);
 });
 document.querySelector('#cancel-add').addEventListener('click', () => addDialog.close());
 document.querySelector('#close-add').addEventListener('click', () => addDialog.close());

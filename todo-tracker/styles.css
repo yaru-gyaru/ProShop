@@ -178,6 +178,23 @@ dialog::backdrop {
     padding: 30px;
 }
 
+.profile-dialog-topbar {
+    position: sticky;
+    top: 0;
+    z-index: 2;
+    display: flex;
+    justify-content: flex-end;
+    margin: -12px -12px 4px 0;
+    background: var(--card);
+}
+
+.profile-add-task {
+    width: 100%;
+    margin: 12px 0 4px;
+    padding: 12px 14px;
+    background: #69894e;
+}
+
 .profile-layout {
     grid-template-columns: minmax(260px, 0.8fr) minmax(0, 1.2fr);
     gap: 30px;
