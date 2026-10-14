@@ -71,25 +71,32 @@
         </form>
     </dialog>
     <dialog id="profile-dialog" class="profile-dialog" aria-labelledby="profile-title">
-        <div class="profile-heading">
-            <img id="profile-avatar" class="profile-avatar" alt="" hidden>
-            <div>
-                <h2 id="profile-title"></h2>
-                <p id="profile-info"></p>
-                <a id="profile-link" target="_blank" rel="noopener noreferrer">Профиль в DummyJSON ↗</a>
+        <div class="profile-layout">
+            <aside class="profile-info-column">
+                <div class="profile-heading">
+                    <img id="profile-avatar" class="profile-avatar" alt="" hidden>
+                    <div>
+                        <h2 id="profile-title"></h2>
+                        <p id="profile-info"></p>
+                    </div>
+                </div>
+                <ul id="profile-details" class="profile-details"></ul>
+                <button id="close-profile" type="button" class="secondary">Жабу</button>
+            </aside>
+            <div class="profile-task-column">
+                <h2 class="profile-tasks-title">Тапсырмалары</h2>
+                <section>
+                    <h3>Орындалған тапсырмалар</h3>
+                    <ul id="profile-done" class="profile-tasks"></ul>
+                    <p id="profile-done-empty" hidden>Орындалған тапсырмалар жоқ.</p>
+                </section>
+                <section>
+                    <h3>Орындалмаған тапсырмалар</h3>
+                    <ul id="profile-open" class="profile-tasks"></ul>
+                    <p id="profile-open-empty" hidden>Орындалмаған тапсырмалар жоқ.</p>
+                </section>
             </div>
         </div>
-        <section>
-            <h3>Орындалған тапсырмалар</h3>
-            <ul id="profile-done" class="profile-tasks"></ul>
-            <p id="profile-done-empty" hidden>Орындалған тапсырмалар жоқ.</p>
-        </section>
-        <section>
-            <h3>Орындалмаған тапсырмалар</h3>
-            <ul id="profile-open" class="profile-tasks"></ul>
-            <p id="profile-open-empty" hidden>Орындалмаған тапсырмалар жоқ.</p>
-        </section>
-        <button id="close-profile" type="button" class="secondary">Жабу</button>
     </dialog>
 </body>
 </html>
