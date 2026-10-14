@@ -58,7 +58,16 @@ color: var(--ink);
 font-weight: bold;
 }
 
-.profile-dialog { width: min(720px, 94vw); max-height: 85vh; overflow-y: auto; }
+.profile-dialog { width: min(1000px, 96vw); max-height: 85vh; overflow-y: auto; }
+.profile-layout { display: grid; grid-template-columns: minmax(260px, 0.8fr) minmax(0, 1.2fr); gap: 28px; align-items: start; }
+.profile-task-column { min-width: 0; }
+.profile-tasks-title { margin-top: 0; }
+.profile-info-column { position: sticky; top: 0; padding: 22px; border: 1px solid var(--line); border-radius: 16px; background: #fffef8; }
+.profile-info-column button { margin-top: 24px; }
+.profile-details { margin: 18px 0 0; }
+.profile-details li { display: grid; gap: 4px; padding: 11px 0; border-top: 1px solid var(--line); overflow-wrap: anywhere; }
+.profile-detail-name { color: #596855; font-size: 12px; }
+.profile-detail-value { font-size: 14px; font-weight: 600; }
 #add-dialog form { display: grid; gap: 12px; }
 #add-dialog textarea { margin-top: 0; }
 #add-dialog select { width: 100%; }
@@ -73,4 +82,6 @@ font-weight: bold;
 .profile-task-actions button { padding: 8px 10px; font-size: 13px; }
 @media (max-width: 600px) {
     .profile-task { align-items: flex-start; flex-direction: column; }
+    .profile-layout { grid-template-columns: 1fr; gap: 12px; }
+    .profile-info-column { position: static; grid-row: 1; }
 }

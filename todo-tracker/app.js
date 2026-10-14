@@ -50,7 +50,7 @@ async function loadUserProfiles() {
     profilesLoading = true;
     const thisLoad = ++profileLoadNumber;
     try {
-        const data = await request('/users?limit=0&select=id,username,image,firstName,lastName,age');
+        const data = await request('/users?limit=0&select=id,username,image,firstName,lastName,age,email,phone,gender,birthDate,address,university,company');
         if (!Array.isArray(data.users) || thisLoad !== profileLoadNumber) return;
         userProfiles = new Map(data.users.map((profile) => [profile.id, profile]));
         fillAssigneeOptions();
@@ -193,17 +193,41 @@ function renderProfile(id) {
     document.querySelector('#profile-title').textContent =
         profile?.username ? `@${profile.username}` : `Пайдаланушы #${id}`;
 
-    document.querySelector('#profile-info').textContent = [
-        fullName,
-        profile?.age ? `${profile.age} жас` : '',
-        `ID #${id}`
-    ].filter(Boolean).join(' · ');
+    document.querySelector('#profile-info').textContent = `${fullName || 'Пайдаланушы'} · ID #${id}`;
 
-<<<<<<< HEAD
+
     document.querySelector('#profile-link').href = `${API}/users/${id}` + (profile?.username ? `?username=${profile.username}` : '')        ;
-=======
     document.querySelector('#profile-link').href = `${API}/users/${id}`;
->>>>>>> 59fe4d1562c3e0c96e1d31aef0518d0ab08c9cb2
+    const address = profile?.address
+        ? [profile.address.address, profile.address.city, profile.address.state, profile.address.postalCode, profile.address.country]
+            .filter(Boolean).join(', ')
+        : '';
+    const genderNames = { female: 'Әйел', male: 'Ер' };
+    const details = [
+        ['Пайдаланушы аты', profile?.username ? `@${profile.username}` : ''],
+        ['Жасы', profile?.age ? `${profile.age} жас` : ''],
+        ['Жынысы', genderNames[profile?.gender] || profile?.gender || ''],
+        ['Туған күні', profile?.birthDate || ''],
+        ['Электрондық пошта', profile?.email || ''],
+        ['Телефон', profile?.phone || ''],
+        ['Мекенжайы', address],
+        ['Оқу орны', profile?.university || ''],
+        ['Жұмыс орны', profile?.company?.name || ''],
+        ['Қызметі', profile?.company?.title || '']
+    ];
+    const detailsList = document.querySelector('#profile-details');
+    detailsList.replaceChildren();
+    details.filter(([, value]) => value).forEach(([label, value]) => {
+        const item = document.createElement('li');
+        const name = document.createElement('span');
+        name.className = 'profile-detail-name';
+        name.textContent = label;
+        const content = document.createElement('span');
+        content.className = 'profile-detail-value';
+        content.textContent = value;
+        item.append(name, content);
+        detailsList.append(item);
+    });
 
     if (profile?.image) {
         avatar.src = profile.image;
@@ -330,7 +354,6 @@ function render() {
         const edit = document.createElement('button');
         edit.className = 'secondary';
         edit.textContent = 'Өзгерту';
-<<<<<<< HEAD
         edit.addEventListener('click', () => {
             editingKey = todo.key;
             editInput.value = todo.todo;
@@ -339,25 +362,11 @@ function render() {
             document.querySelector('#edit-error').textContent = '';
             dialog.showModal();
         });
-        const remove = document.createElement('button');
-        remove.className = 'secondary';
-        remove.textContent = 'Жою';
-        remove.addEventListener('click', () => {
-            if (!confirm(`«${todo.todo}» тапсырмасын жою керек пе?`)) return;
-            action(async () => {
-                if (!todo.local) await request(`/todos/${todo.id}`, 'DELETE');
-                todos = todos.filter((item) => item.key !== todo.key);
-                if (editingKey === todo.key) cancelEdit();
-                save(); render();
-            });
-        });
-=======
         edit.addEventListener('click', () => startEditing(todo));
         const remove = document.createElement('button');
         remove.className = 'secondary';
         remove.textContent = 'Жою';
         remove.addEventListener('click', () => removeTodo(todo));
->>>>>>> 59fe4d1562c3e0c96e1d31aef0518d0ab08c9cb2
         actions.append(edit, remove);
         row.append(checkbox, content, actions);
         list.append(row);
