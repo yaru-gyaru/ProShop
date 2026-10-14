@@ -7,6 +7,8 @@ const message = document.querySelector('#message');
 let userId = null;
 let loadedOwners = [];
 let todos = [];
+let userProfiles = new Map();
+let profileLoadNumber = 0;
 let editingKey = null;
 let busy = false;
 const dialog = document.querySelector('#edit-dialog');
@@ -32,6 +34,19 @@ async function request(path, method = 'GET', body) {
         return await response.json();
     } finally {
         clearTimeout(timer);
+    }
+}
+
+// Пайдаланушылардың тек тапсырмаларда қажет деректерін аламыз.
+async function loadUserProfiles() {
+    const thisLoad = ++profileLoadNumber;
+    try {
+        const data = await request('/users?limit=0&select=id,username,image');
+        if (!Array.isArray(data.users) || thisLoad !== profileLoadNumber) return;
+        userProfiles = new Map(data.users.map((profile) => [profile.id, profile]));
+        render();
+    } catch {
+        // Пайдаланушы деректері уақытша ашылмаса да, тапсырмалар көрсетіле береді.
     }
 }
 
@@ -118,7 +133,26 @@ function render() {
         const meta = document.createElement('span');
         meta.className = 'meta';
         meta.textContent = `${todo.completed ? 'оқылды' : 'оқылды емес'} · #${todo.userId} · ${todo.local ? 'Жергілікті' : `API #${todo.id}`}`;
-        content.append(title, meta);
+        const profile = userProfiles.get(todo.userId);
+        const account = document.createElement('a');
+        account.className = 'task-user';
+        account.href = `${API}/users/${todo.userId}`;
+        account.target = '_blank';
+        account.rel = 'noopener noreferrer';
+        account.setAttribute('aria-label', `Тапсырма иесінің профилін ашу: ${profile?.username || `#${todo.userId}`}`);
+
+        const avatar = document.createElement('img');
+        avatar.className = 'task-user-avatar';
+        avatar.src = profile?.image || `${API}/icon/user-${todo.userId}/64`;
+        avatar.alt = '';
+        avatar.width = 28;
+        avatar.height = 28;
+        avatar.loading = 'lazy';
+
+        const username = document.createElement('span');
+        username.textContent = profile?.username ? `@${profile.username}` : `Пайдаланушы #${todo.userId}`;
+        account.append(avatar, username);
+        content.append(title, meta, account);
         const actions = document.createElement('div');
         actions.className = 'actions';
         const edit = document.createElement('button');
@@ -128,9 +162,9 @@ function render() {
             editingKey = todo.key;
             editInput.value = todo.todo;
             document.querySelector('#edit-owner').textContent =
-Тапсырма иесі: пайдаланушы #${todo.userId};
+                `Тапсырма иесі: пайдаланушы #${todo.userId}`;
             document.querySelector('#edit-error').textContent = '';
-dialog.showModal();
+            dialog.showModal();
         });
         const remove = document.createElement('button');
         remove.className = 'secondary';
@@ -184,6 +218,7 @@ userForm.addEventListener('submit', (event) => {
         todoForm.hidden = id === 0;
         render();
         tell(cached ? 'API жүктелді. Сақталған өзгерістер көрсетілді.' : 'Тапсырмалар API арқылы жүктелді.');
+        void loadUserProfiles();
     });
 });
 
