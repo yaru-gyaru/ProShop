@@ -1,4 +1,4 @@
-:root { color-scheme: light; --ink: #20352c; --paper: #f5f3eb; --line: #d6ddd1; --accent: #c9e7aa; }
+:root { color-scheme: light; --ink: #20352c; --paper: #f5f3eb; --line: #d6ddd1; --accent: #c9e7aa; --card: #fffefa; --muted: #718075; }
 * { box-sizing: border-box; }
 [hidden] { display: none !important; }
 body { margin: 0; background: var(--paper); color: var(--ink); font-family: Arial, sans-serif; }
