@@ -20,10 +20,7 @@
         <section id="workspace" hidden>
             <div class="heading"><h2 id="owner"></h2><span id="stats"></span></div>
             <progress id="progress" max="1" value="0" aria-label="Орындалған тапсырмалар"></progress>
-            <form id="todo-form" class="panel add-panel">
-                <label id="input-label" for="todo-text">Жаңа тапсырма</label>
-                <div class="input-row"><input id="todo-text" placeholder="Не істеу керек?" maxlength="300" required><button id="save" type="submit">Қосу</button></div>
-            </form>
+            <button id="open-add-dialog" type="button">Жаңа тапсырма қосу ＋</button>
             <label class="filter">Көрсету <select id="filter"><option value="all">Барлық тапсырмалар</option><option value="open">оқылды емес</option><option value="done">оқылды</option></select></label>
 
             <label class="filter">Сұрыптау <select id="sort">
@@ -53,6 +50,46 @@
                 <button id="cancel-edit" type="button" class="secondary">Бас тарту</button>
             </div>
         </form>
+    </dialog>
+    <dialog id="add-dialog" aria-labelledby="add-title">
+        <form id="todo-form">
+            <h2 id="add-title">Жаңа тапсырма</h2>
+            <label for="todo-text">Тапсырма мәтіні</label>
+            <textarea id="todo-text" placeholder="Не істеу керек?" maxlength="300" rows="3" required></textarea>
+            <label for="assignee">Орындаушы</label>
+            <select id="assignee" required></select>
+            <label for="new-status">Тапсырма күйі</label>
+            <select id="new-status">
+                <option value="false">Орындалмаған</option>
+                <option value="true">Орындалған</option>
+            </select>
+            <p id="add-error" role="alert"></p>
+            <div class="input-row">
+                <button type="submit">Қосу</button>
+                <button id="cancel-add" type="button" class="secondary">Бас тарту</button>
+            </div>
+        </form>
+    </dialog>
+    <dialog id="profile-dialog" class="profile-dialog" aria-labelledby="profile-title">
+        <div class="profile-heading">
+            <img id="profile-avatar" class="profile-avatar" alt="" hidden>
+            <div>
+                <h2 id="profile-title"></h2>
+                <p id="profile-info"></p>
+                <a id="profile-link" target="_blank" rel="noopener noreferrer">Профиль в DummyJSON ↗</a>
+            </div>
+        </div>
+        <section>
+            <h3>Орындалған тапсырмалар</h3>
+            <ul id="profile-done" class="profile-tasks"></ul>
+            <p id="profile-done-empty" hidden>Орындалған тапсырмалар жоқ.</p>
+        </section>
+        <section>
+            <h3>Орындалмаған тапсырмалар</h3>
+            <ul id="profile-open" class="profile-tasks"></ul>
+            <p id="profile-open-empty" hidden>Орындалмаған тапсырмалар жоқ.</p>
+        </section>
+        <button id="close-profile" type="button" class="secondary">Жабу</button>
     </dialog>
 </body>
 </html>
