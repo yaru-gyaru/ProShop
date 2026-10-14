@@ -196,8 +196,6 @@ function renderProfile(id) {
     document.querySelector('#profile-info').textContent = `${fullName || 'Пайдаланушы'} · ID #${id}`;
 
 
-    document.querySelector('#profile-link').href = `${API}/users/${id}` + (profile?.username ? `?username=${profile.username}` : '')        ;
-    document.querySelector('#profile-link').href = `${API}/users/${id}`;
     const address = profile?.address
         ? [profile.address.address, profile.address.city, profile.address.state, profile.address.postalCode, profile.address.country]
             .filter(Boolean).join(', ')
@@ -279,8 +277,7 @@ function render() {
     const progress = document.querySelector('#progress');
     progress.max = todos.length || 1;
     progress.value = done;
-    const filter = document.querySelector('#filter').value;
-    const visible = todos.filter((todo) => filter === 'all' || todo.completed === (filter === 'done'));
+    const visible = [...todos];
     const sort = document.querySelector('#sort').value;
 
     if (sort === 'az') {
@@ -402,7 +399,6 @@ userForm.addEventListener('submit', (event) => {
         userId = id;
         todos = next;
         cancelEdit();
-        document.querySelector('#filter').value = 'all';
         document.querySelector('#workspace').hidden = false;
         fillAssigneeOptions();
         render();
@@ -439,7 +435,6 @@ todoForm.addEventListener('submit', (event) => {
         todos.unshift({ id: added.id, key: crypto.randomUUID(), userId: assignedUserId, todo: text, completed, local: true });
         if (!loadedOwners.includes(assignedUserId)) loadedOwners.push(assignedUserId);
         textInput.value = '';
-        document.querySelector('#filter').value = 'all';
         save(); render();
         if (profileDialog.open) renderProfile(openProfileId);
         addDialog.close();
@@ -472,5 +467,4 @@ document.querySelector('#edit-form').addEventListener('submit', (event) => {
         }
     });
 });
-document.querySelector('#filter').addEventListener('change', render);
 document.querySelector('#sort').addEventListener('change', render);
